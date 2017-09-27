@@ -5,41 +5,17 @@ namespace benliev\Middleware\Tests;
 use benliev\Middleware\CsrfMiddleware;
 use benliev\Middleware\Exceptions\InvalidCsrfException;
 use benliev\Middleware\Exceptions\NoCsrfException;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class CSRFMiddlewareTest
  * @author Lievens Benjamin <l.benjamin185@gmail.com>
  * @package benliev\Middleware\Tests
  */
-class CsrfMiddlewareTest extends TestCase
+class CsrfMiddlewareTest extends MiddlewareTestCase
 {
     private function makeMiddleware(&$session = []) : CsrfMiddleware
     {
         return new CsrfMiddleware($session);
-    }
-
-    private function makeRequest(string $method = 'GET', ?array $params = null)
-    {
-        $request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
-        $request->method('getMethod')->willReturn($method);
-        $request->method('getParsedBody')->willReturn($params);
-        return $request;
-    }
-
-    private function makeDelegate()
-    {
-        $delegate = $this->getMockBuilder(DelegateInterface::class)->getMock();
-        $delegate->method('process')->willReturn($this->makeResponse());
-        return $delegate;
-    }
-
-    private function makeResponse()
-    {
-        return $this->getMockBuilder(ResponseInterface::class)->getMock();
     }
 
     public function testAcceptValidSession()
@@ -89,7 +65,7 @@ class CsrfMiddlewareTest extends TestCase
         $delegate = $this->makeDelegate();
         $delegate->expects($this->once())->method('process')->willReturn($this->makeResponse());
         $middleware->process(
-            $this->makeRequest('POST', ['_csrf' => $token]),
+            $this->makeRequest('POST', '/demo', ['_csrf' => $token]),
             $delegate
         );
     }
@@ -102,7 +78,7 @@ class CsrfMiddlewareTest extends TestCase
         $delegate->expects($this->never())->method('process');
         $this->expectException(InvalidCsrfException::class);
         $middleware->process(
-            $this->makeRequest('POST', ['_csrf' => '']),
+            $this->makeRequest('POST', '/demo', ['_csrf' => '']),
             $delegate
         );
     }
@@ -114,12 +90,12 @@ class CsrfMiddlewareTest extends TestCase
         $delegate = $this->makeDelegate();
         $delegate->expects($this->once())->method('process')->willReturn($this->makeResponse());
         $middleware->process(
-            $this->makeRequest('POST', ['_csrf' => $token]),
+            $this->makeRequest('POST', '/demo', ['_csrf' => $token]),
             $delegate
         );
         $this->expectException(InvalidCsrfException::class);
         $middleware->process(
-            $this->makeRequest('POST', ['_csrf' => $token]),
+            $this->makeRequest('POST', '/demo', ['_csrf' => $token]),
             $delegate
         );
     }

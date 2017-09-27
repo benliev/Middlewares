@@ -3,6 +3,7 @@
 namespace benliev\Middleware;
 
 use GuzzleHttp\Psr7\Response;
+use Interop\Http\Factory\ResponseFactoryInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -17,10 +18,26 @@ use Psr\Http\Message\ServerRequestInterface;
 class NotFoundMiddleware implements MiddlewareInterface
 {
     /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    /**
+     * NotFoundMiddleware constructor.
+     * @param ResponseFactoryInterface $responseFactory
+     */
+    public function __construct(ResponseFactoryInterface $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
+
+    /**
      * @inheritdoc
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
-        return new Response(404, [], 'Error 404');
+        $response = $this->responseFactory->createResponse(404);
+        $response->getBody()->write('Error 404');
+        return $response;
     }
 }

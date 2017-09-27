@@ -26,12 +26,13 @@ composer test
 ## Usage example
 
 ```php
-$request = \GuzzleHttp\Psr7\ServerRequest::fromGlobals()::fromGlobals();
+$responseFactory = new \Http\Factory\Guzzle\ResponseFactory();
+$request = \GuzzleHttp\Psr7\ServerRequest::fromGlobals();
 $response = (new Dispatcher())
-    ->pipe(TrailingSlashMiddleware::class)
-    ->pipe(MethodMiddleware::class)
-    ->pipe(CsrfMiddleware::class)
-    ->pipe(NotFoundMiddleware::class)
+    ->pipe(new TrailingSlashMiddleware($responseFactory))
+    ->pipe(new MethodMiddleware())
+    ->pipe(new CsrfMiddleware())
+    ->pipe(new NotFoundMiddleware($responseFactory))
     ->process($request));
 \Http\Response\send($response);
 ```
