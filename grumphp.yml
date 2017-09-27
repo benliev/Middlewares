@@ -1,0 +1,11 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    tasks:
+      phplint: ~
+      phpunit: ~
+      phpcs: ~
+    # disable banner
+    ascii:
+      failed: ~
+      succeeded: ~
