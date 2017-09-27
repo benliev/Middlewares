@@ -35,5 +35,4 @@ class MiddlewareTestCase extends TestCase
     {
         return $this->getMockBuilder(ResponseInterface::class)->getMock();
     }
-
 }

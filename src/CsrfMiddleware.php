@@ -2,10 +2,8 @@
 
 namespace benliev\Middleware;
 
-use benliev\Middleware\Exceptions\{
-    InvalidCsrfException,
-    NoCsrfException
-};
+use benliev\Middleware\Exceptions\InvalidCsrfException;
+use benliev\Middleware\Exceptions\NoCsrfException;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;

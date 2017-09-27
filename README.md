@@ -1,5 +1,7 @@
 # PHP middleware
 
+[![Build Status](https://travis-ci.org/benliev/Middlewares.svg?branch=master)](https://travis-ci.org/benliev/Middlewares)
+
 Collection of [PSR-15 Middleware](https://github.com/php-fig/fig-standards/blob/master/proposed/http-middleware/middleware.md).
 
 ## Requirements

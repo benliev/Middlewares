@@ -25,5 +25,4 @@ class NotFoundMiddlewareTest extends MiddlewareTestCase
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertEquals('Error 404', (string)$response->getBody());
     }
-
 }

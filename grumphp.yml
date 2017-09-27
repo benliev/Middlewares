@@ -4,7 +4,7 @@ parameters:
     tasks:
       phplint: ~
       phpunit: ~
-      phpcs: ~
+      phpcs: ~vendo
     # disable banner
     ascii:
       failed: ~
