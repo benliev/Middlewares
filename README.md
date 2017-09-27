@@ -11,7 +11,7 @@ PHP >= 7.1
 For the moment this library is not on packagist.
 
 ```shell
-git clone blabla
+git clone https://github.com/benliev/Middlewares.git
 composer install
 ```
 
