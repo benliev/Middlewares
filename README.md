@@ -10,11 +10,8 @@ PHP >= 7.1
 
 ## Installation
 
-For the moment this library is not on packagist.
-
 ```shell
-git clone https://github.com/benliev/Middlewares.git
-composer install
+composer require benliev/middleware
 ```
 
 ### Test
