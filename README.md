@@ -11,7 +11,7 @@ PHP >= 7.1
 ## Installation
 
 ```shell
-composer require benliev/middleware
+composer require benvens/middleware
 ```
 
 ### Test
