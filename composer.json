@@ -1,5 +1,5 @@
 {
-    "name": "benliev/middleware",
+    "name": "benvens/middleware",
     "description": "Collection of PSR-15 middleware",
     "type": "library",
     "license": "MIT",
